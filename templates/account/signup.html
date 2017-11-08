@@ -1,0 +1,24 @@
+<div class="text-center"><h3><b>Sign Up</b></h3></div>
+<form id="ajax-register-form" action="{% url 'account-register' %}" method="post"
+      role="form" autocomplete="off" novalidate>
+
+    {% for field in signup_form %}
+        <div class="form-group">
+            {{ field }}
+        </div>
+    {% endfor %}
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-xs-6 col-xs-offset-3">
+                <input type="submit" name="register-submit" id="register-submit"
+                       tabindex="4" class="btn btn-info"
+                       value="Register Now">
+            </div>
+        </div>
+    </div>
+    {% if next %}
+        <input type="hidden" name="next" value="{{ next }}"/>
+    {% endif %}
+    {% csrf_token %}
+</form>

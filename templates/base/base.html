@@ -1,0 +1,18 @@
+{% load bootstrap3 %}
+{% load static %}
+<html>
+
+    <head>
+        {% block head %}
+            {% include 'base/head.html' %}
+        {% endblock %}
+    </head>
+
+    <body>
+        {% include 'base/navbar.html' %}
+        {% include 'base/errors.html' %}
+
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
