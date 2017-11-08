@@ -1,0 +1,16 @@
+{% if messages %}
+    <script type="text/javascript">
+        var errors = '';
+
+        {% for message in messages %}
+            errors += '{{ message }}\r\n';
+        {% endfor %}
+
+
+        BootstrapDialog.show({
+            title: 'Bad news',
+            message: errors
+        });
+
+    </script>
+{% endif %}
