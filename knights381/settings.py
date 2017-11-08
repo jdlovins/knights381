@@ -133,7 +133,7 @@ STATICFILES_DIRS = [
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-OOTSTRAP3 = {
+BOOTSTRAP3 = {
 
     # The URL to the jQuery JavaScript file
     'jquery_url': '//code.jquery.com/jquery.min.js',
