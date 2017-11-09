@@ -13,7 +13,7 @@ class Books(models.Model):
     book_datePublished = models.DateTimeField(default='', blank=True)
     book_numOfPages = models.IntegerField(default='', blank=True)
     book_hardback = models.BooleanField(default=False, blank=False)
-    book_retailPrice = models.DecimalField(default=0, blank=False, decimal_places=2)
+    book_retailPrice = models.DecimalField(default=0, blank=False, max_digits=5, decimal_places=2)
 
 # Need to create relationships for user and book_name
 class Review(models.Model):
