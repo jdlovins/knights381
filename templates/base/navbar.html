@@ -1,4 +1,5 @@
 <!-- Fixed navbar -->
+<!-- TODO: Add functionality to NavBar Browse Catalog, New Arrivals, Contact Us, and Cart -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -16,6 +17,16 @@
                 <li {% if request.resolver_match.url_name == 'index' %} class="active" {% endif %}>
                     <a href="{% url 'index' %}">Home</a>
                 </li>
+                <li>
+                    <a href="#">Catalog</a>
+                </li>
+                <li>
+                    <a href="#">New Arrivals</a>
+                </li>
+                <li>
+                    <a href="#">Contact Us</a>
+                </li>
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
 
@@ -52,6 +63,9 @@
                         </ul>
                     {% endif %}
                     </li>
+                <li>
+                    <a href="#">Cart</a>
+                </li>
             </ul>
         </div>
     </div>
