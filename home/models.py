@@ -27,6 +27,16 @@ class Order(models.Model):
     order_shipped = models.BooleanField(default=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+class ShoppingCart(models.Model):
+    cart_itemName = models.CharField(default='', blank=False, max_length=50)
+    cart_itemPrice = models.DecimalField(default='', blank=False, decimal_places=2)
+    cart_shippingPrice = models.DecimalField(default=0, blank=False, decimal_places=2)
+    cart_salesTax = models.DecimalField(default=0, blank=False, decimal_places=2)
+    cart_numOfItems = models.IntegerField(default=0, blank=False)
+    cart_subTotal = models.DecimalField(default=0, blank=False, decimal_places=2)
+    cart_discounts = models.DecimalField(default=0, blank=True, decimal_places=2)
+    cart_grandTotal = models.DecimalField(default=0, blank=False, decimal_places=2)
+
 
 # Need to create relationships for user and book_name
 class Review(models.Model):
