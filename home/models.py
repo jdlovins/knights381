@@ -25,8 +25,14 @@ class Orders(models.Model):
     order_shipped = models.BooleanField(default=False, blank=False)
 
 
-
-
+# Need to create relationships for user and book_name
+class Review(models.Model):
+    user = models.CharField(max_length=30)
+    review_date = models.DateField(blank=False)
+    book_name = models.CharField(max_length=50, blank=False)
+    review_rating = models.DecimalField(max_digits=2,decimal_places=1, blank=False)
+    review_name = models.CharField(max_length=30, blank=False)
+    review_content = models.CharField(max_length=500, blank=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
