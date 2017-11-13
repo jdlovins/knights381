@@ -16,6 +16,9 @@ class Book(models.Model):
     book_hardback = models.BooleanField(default=False, blank=False)
     book_retailPrice = models.DecimalField(default=0, blank=False, decimal_places=2)
 
+    def __str__(self):
+        return f'{self.book_name} - {self.book_author}'
+
 
 class Order(models.Model):
     order_number = models.IntegerField(default='', blank=False)
@@ -27,6 +30,10 @@ class Order(models.Model):
     order_shipped = models.BooleanField(default=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.order_number}'
+
+
 class ShoppingCart(models.Model):
     cart_itemName = models.CharField(default='', blank=False, max_length=50)
     cart_itemPrice = models.DecimalField(default='', blank=False, decimal_places=2)
@@ -36,6 +43,7 @@ class ShoppingCart(models.Model):
     cart_subTotal = models.DecimalField(default=0, blank=False, decimal_places=2)
     cart_discounts = models.DecimalField(default=0, blank=True, decimal_places=2)
     cart_grandTotal = models.DecimalField(default=0, blank=False, decimal_places=2)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 # Need to create relationships for user and book_name
@@ -54,6 +62,9 @@ class Profile(models.Model):
     # bio = models.TextField(max_length=500, blank=True)
     # location = models.CharField(max_length=30, blank=True)
     # birth_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.user.username}'
 
 
 @receiver(post_save, sender=User)
