@@ -5,7 +5,8 @@ from django.dispatch import receiver
 
 # Create your models here.
 
-class Books(models.Model):
+
+class Book(models.Model):
     book_name = models.CharField(default='', blank=False, max_length=50)
     book_author = models.CharField(default='anonymous', blank=False, max_length=50)
     book_illustrator = models.CharField(default='', blank=True, max_length=50)
@@ -15,7 +16,8 @@ class Books(models.Model):
     book_hardback = models.BooleanField(default=False, blank=False)
     book_retailPrice = models.DecimalField(default=0, blank=False, decimal_places=2)
 
-class Orders(models.Model):
+
+class Order(models.Model):
     order_number = models.IntegerField(default='', blank=False)
     order_numOfItems = models.IntegerField(default='', blank=False)
     order_totalAmount = models.DecimalField(default=0, blank=False, decimal_places=2)
@@ -23,16 +25,18 @@ class Orders(models.Model):
     order_shippingZipCode = models.IntegerField(default='', blank=False)
     order_paid = models.BooleanField(default=False, blank=False)
     order_shipped = models.BooleanField(default=False, blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 # Need to create relationships for user and book_name
 class Review(models.Model):
-    user = models.CharField(max_length=30)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
     review_date = models.DateField(blank=False)
-    book_name = models.CharField(max_length=50, blank=False)
     review_rating = models.DecimalField(max_digits=2,decimal_places=1, blank=False)
     review_name = models.CharField(max_length=30, blank=False)
     review_content = models.CharField(max_length=500, blank=True)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
