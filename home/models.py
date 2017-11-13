@@ -15,6 +15,16 @@ class Books(models.Model):
     book_hardback = models.BooleanField(default=False, blank=False)
     book_retailPrice = models.DecimalField(default=0, blank=False, decimal_places=2)
 
+class Orders(models.Model):
+    order_number = models.IntegerField(default='', blank=False)
+    order_numOfItems = models.IntegerField(default='', blank=False)
+    order_totalAmount = models.DecimalField(default=0, blank=False, decimal_places=2)
+    order_shippingAddress = models.CharField(default='In-Store purchase', blank=False, max_length=100)
+    order_shippingZipCode = models.IntegerField(default='', blank=False)
+    order_paid = models.BooleanField(default=False, blank=False)
+    order_shipped = models.BooleanField(default=False, blank=False)
+
+
 
 
 
