@@ -6,7 +6,7 @@ from django.dispatch import receiver
 # Create your models here.
 
 
-class Books(models.Model):
+class Book(models.Model):
     book_name = models.CharField(default='', blank=False, max_length=50)
     book_author = models.CharField(default='anonymous', blank=False, max_length=50)
     book_illustrator = models.CharField(default='', blank=True, max_length=50)
@@ -14,21 +14,51 @@ class Books(models.Model):
     book_datePublished = models.DateTimeField(default='', blank=True)
     book_numOfPages = models.IntegerField(default='', blank=True)
     book_hardback = models.BooleanField(default=False, blank=False)
-    book_retailPrice = models.DecimalField(default=0, blank=False, max_digits=5, decimal_places=2)
+    book_retailPrice = models.DecimalField(default=0, blank=False, decimal_places=2)
+
+    def __str__(self):
+        return f'{self.book_name} - {self.book_author}'
 
 
-# Need to create relationships for user and book_name
+class Order(models.Model):
+    order_number = models.IntegerField(default='', blank=False)
+    order_numOfItems = models.IntegerField(default='', blank=False)
+    order_totalAmount = models.DecimalField(default=0, blank=False, decimal_places=2)
+    order_shippingAddress = models.CharField(default='In-Store purchase', blank=False, max_length=100)
+    order_shippingZipCode = models.IntegerField(default='', blank=False)
+    order_paid = models.BooleanField(default=False, blank=False)
+    order_shipped = models.BooleanField(default=False, blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.order_number}'
+
+
+class ShoppingCart(models.Model):
+    cart_itemName = models.CharField(default='', blank=False, max_length=50)
+    cart_itemPrice = models.DecimalField(default='', blank=False, decimal_places=2)
+    cart_shippingPrice = models.DecimalField(default=0, blank=False, decimal_places=2)
+    cart_salesTax = models.DecimalField(default=0, blank=False, decimal_places=2)
+    cart_numOfItems = models.IntegerField(default=0, blank=False)
+    cart_subTotal = models.DecimalField(default=0, blank=False, decimal_places=2)
+    cart_discounts = models.DecimalField(default=0, blank=True, decimal_places=2)
+    cart_grandTotal = models.DecimalField(default=0, blank=False, decimal_places=2)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 class Review(models.Model):
-    user = models.CharField(max_length=30)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
     review_date = models.DateField(blank=False)
-    book_name = models.CharField(max_length=50, blank=False)
-    review_rating = models.DecimalField(max_digits=2, decimal_places=1, blank=False)
+    review_rating = models.DecimalField(max_digits=2,decimal_places=1, blank=False)
     review_name = models.CharField(max_length=30, blank=False)
     review_content = models.CharField(max_length=500, blank=True)
 
 
 # TODO: Add validation to model fields in back or front end. Not necessary for prototype
 # TODO: Possibly add shipping related information instead of just billing. This includes implementing "Same as shipping"
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     steam_id = models.CharField(default='', blank=True, max_length=20)
@@ -118,6 +148,9 @@ class Profile(models.Model):
 
     exp_month = models.CharField(choices=MONTH_CHOICES, default=12)
     exp_year = models.IntegerField(default=2017, max_length=4)
+
+    def __str__(self):
+        return f'{self.user.username}'
 
 
 @receiver(post_save, sender=User)
