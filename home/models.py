@@ -14,7 +14,7 @@ class Book(models.Model):
     book_datePublished = models.DateTimeField(default='', blank=True)
     book_numOfPages = models.IntegerField(default='', blank=True)
     book_hardback = models.BooleanField(default=False, blank=False)
-    book_retailPrice = models.DecimalField(default=0, blank=False, decimal_places=2)
+    book_retailPrice = models.DecimalField(default=0, blank=False, max_digits=5,decimal_places=2)
 
     def __str__(self):
         return f'{self.book_name} - {self.book_author}'
@@ -23,7 +23,7 @@ class Book(models.Model):
 class Order(models.Model):
     order_number = models.IntegerField(default='', blank=False)
     order_numOfItems = models.IntegerField(default='', blank=False)
-    order_totalAmount = models.DecimalField(default=0, blank=False, decimal_places=2)
+    order_totalAmount = models.DecimalField(default=0, blank=False, decimal_places=2, max_digits=5)
     order_shippingAddress = models.CharField(default='In-Store purchase', blank=False, max_length=100)
     order_shippingZipCode = models.IntegerField(default='', blank=False)
     order_paid = models.BooleanField(default=False, blank=False)
@@ -36,13 +36,13 @@ class Order(models.Model):
 
 class ShoppingCart(models.Model):
     cart_itemName = models.CharField(default='', blank=False, max_length=50)
-    cart_itemPrice = models.DecimalField(default='', blank=False, decimal_places=2)
-    cart_shippingPrice = models.DecimalField(default=0, blank=False, decimal_places=2)
-    cart_salesTax = models.DecimalField(default=0, blank=False, decimal_places=2)
+    cart_itemPrice = models.DecimalField(default='', blank=False, max_digits=5, decimal_places=2)
+    cart_shippingPrice = models.DecimalField(default=0, blank=False, max_digits=5, decimal_places=2)
+    cart_salesTax = models.DecimalField(default=0, blank=False, max_digits=5, decimal_places=2)
     cart_numOfItems = models.IntegerField(default=0, blank=False)
-    cart_subTotal = models.DecimalField(default=0, blank=False, decimal_places=2)
-    cart_discounts = models.DecimalField(default=0, blank=True, decimal_places=2)
-    cart_grandTotal = models.DecimalField(default=0, blank=False, decimal_places=2)
+    cart_subTotal = models.DecimalField(default=0, blank=False, max_digits=5, decimal_places=2)
+    cart_discounts = models.DecimalField(default=0, blank=True, max_digits=5, decimal_places=2)
+    cart_grandTotal = models.DecimalField(default=0, blank=False, max_digits=5, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
@@ -65,9 +65,9 @@ class Profile(models.Model):
 
     # Billing Fields.
     address = models.CharField(default='', blank=True, max_length=70)
-    phone_num = models.IntegerField(max_length=10, blank=True)
+    phone_num = models.IntegerField(default='', blank=True)
     city = models.CharField(default='', blank=True, max_length=50)
-    zip_code = models.IntegerField(max_length=5, blank=True)
+    zip_code = models.IntegerField(default='', blank=True)
 
     STATE_CHOICES = (
         ('AK', 'Alabama'),
@@ -122,12 +122,12 @@ class Profile(models.Model):
         ('WY', 'Wyoming')
     )
 
-    state = models.CharField(choices=STATE_CHOICES, default='AK')
+    state = models.CharField(choices=STATE_CHOICES, default='AK', max_length=2)
 
     # Payment Fields
 
-    card_num = models.IntegerField(max_length=10)
-    card_name = models.CharField(max_length=30)
+    card_num = models.IntegerField(default='',blank=True)
+    card_name = models.CharField(max_length=30,blank=True)
 
     # - Most likely an easier way to implement this using regex but this should work for now.
 
@@ -146,8 +146,8 @@ class Profile(models.Model):
         ('1', 'January')
     )
 
-    exp_month = models.CharField(choices=MONTH_CHOICES, default=12)
-    exp_year = models.IntegerField(default=2017, max_length=4)
+    exp_month = models.CharField(choices=MONTH_CHOICES, max_length=2, default=12)
+    exp_year = models.IntegerField(default=2017)
 
     def __str__(self):
         return f'{self.user.username}'
