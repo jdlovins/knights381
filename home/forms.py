@@ -114,15 +114,30 @@ class UserForm(forms.ModelForm):
         model = User
         fields = {'email'}
 
+
 # TODO: Link Profile model fields into form.
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = {'steam_id'}
+        fields = {'address', 'phone_num', 'city', 'zip_code', 'state', 'card_num', 'card_name', 'exp_month', 'exp_year'}
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
-        self.fields['steam_id'].widget.attrs = {
+        '''self.fields['steam_id'].widget.attrs = {
             'placeholder': 'STEAM_0:0:12345',
             'size': 20
-        }
+        }'''
+
+
+'''
+   address = models.CharField(default='', blank=True, max_length=70)
+    phone_num = models.IntegerField(default=0, blank=True)
+    city = models.CharField(default='', blank=True, max_length=50)
+    zip_code = models.IntegerField(default=0, blank=True)
+    state = models.CharField(choices=STATE_CHOICES, default='AK', max_length=2)
+    # Payment Fields
+    card_num = models.IntegerField(default=0,blank=True)
+    card_name = models.CharField(max_length=30,blank=True)
+    # - Most likely an easier way to implement this using regex but this should work for now.
+    exp_month = models.CharField(choices=MONTH_CHOICES, max_length=2, default=12)
+    exp_year = models.IntegerField(default=2017)'''

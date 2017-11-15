@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from .choices import STATE_CHOICES, MONTH_CHOICES
 
 # Create your models here.
 
@@ -61,91 +62,16 @@ class Review(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    steam_id = models.CharField(default='', blank=True, max_length=20)
-
     # Billing Fields.
     address = models.CharField(default='', blank=True, max_length=70)
-    phone_num = models.IntegerField(default='', blank=True)
+    phone_num = models.IntegerField(default=0, blank=True)
     city = models.CharField(default='', blank=True, max_length=50)
-    zip_code = models.IntegerField(default='', blank=True)
-
-    STATE_CHOICES = (
-        ('AK', 'Alabama'),
-        ('AL', 'Alaska'),
-        ('AZ', 'Arizona'),
-        ('AR', 'Arkansas'),
-        ('CA', 'California'),
-        ('CO', 'Colorado'),
-        ('CT', 'Connecticut'),
-        ('DE', 'Delaware'),
-        ('FL', 'Florida'),
-        ('GA', 'Georgia'),
-        ('HI', 'Hawaii'),
-        ('ID', 'Idaho'),
-        ('IL', 'Illinois'),
-        ('IN', 'Indiana'),
-        ('IA', 'Iowa'),
-        ('KS', 'Kansas'),
-        ('KY', 'Kentucky'),
-        ('LA', 'Louisiana'),
-        ('ME', 'Maine'),
-        ('MD', 'Maryland'),
-        ('MA', 'Massachusetts'),
-        ('MI', 'Michigan'),
-        ('MN', 'Minnesota'),
-        ('MS', 'Mississippi'),
-        ('MO', 'Missouri'),
-        ('MT', 'Montana'),
-        ('NE', 'Nebraska'),
-        ('NV', 'Nevada'),
-        ('NH', 'New Hampshire'),
-        ('NJ', 'New Jersey'),
-        ('NM', 'New Mexico'),
-        ('NY', 'New York'),
-        ('NC', 'North Carolina'),
-        ('ND', 'North Dakota'),
-        ('OH', 'Ohio'),
-        ('OK', 'Oklahoma'),
-        ('OR', 'Oregon'),
-        ('PA', 'Pennsylvania'),
-        ('RI', 'Rhode Island'),
-        ('SC', 'South Carolina'),
-        ('SD', 'South Dakota'),
-        ('TN', 'Tennessee'),
-        ('TX', 'Texas'),
-        ('UT', 'Utah'),
-        ('VT', 'Vermont'),
-        ('VA', 'Virginia'),
-        ('WA', 'Washington'),
-        ('WV', 'West Virginia'),
-        ('WI', 'Wisconsin'),
-        ('WY', 'Wyoming')
-    )
-
+    zip_code = models.IntegerField(default=0, blank=True)
     state = models.CharField(choices=STATE_CHOICES, default='AK', max_length=2)
-
     # Payment Fields
-
-    card_num = models.IntegerField(default='',blank=True)
+    card_num = models.IntegerField(default=0,blank=True)
     card_name = models.CharField(max_length=30,blank=True)
-
     # - Most likely an easier way to implement this using regex but this should work for now.
-
-    MONTH_CHOICES = (
-        ('12', 'December'),
-        ('11', 'November'),
-        ('10', 'October'),
-        ('9', 'September'),
-        ('8', 'August'),
-        ('7', 'July'),
-        ('6', 'June'),
-        ('5', 'May'),
-        ('4', 'April'),
-        ('3', 'March'),
-        ('2', 'February'),
-        ('1', 'January')
-    )
-
     exp_month = models.CharField(choices=MONTH_CHOICES, max_length=2, default=12)
     exp_year = models.IntegerField(default=2017)
 
