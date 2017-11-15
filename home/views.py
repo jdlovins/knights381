@@ -99,3 +99,7 @@ def user_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
+
+def catalog(request):
+    return render(request, 'catalog.html')

@@ -17,8 +17,8 @@
                 <li {% if request.resolver_match.url_name == 'index' %} class="active" {% endif %}>
                     <a href="{% url 'index' %}">Home</a>
                 </li>
-                <li>
-                    <a href="#">Catalog</a>
+                <li {% if request.resolver_match.url_name == 'catalog' %} class="active" {% endif %}>
+                    <a href="{% url 'catalog' %}">Catalog</a>
                 </li>
                 <li>
                     <a href="#">New Arrivals</a>
