@@ -114,7 +114,7 @@ class UserForm(forms.ModelForm):
         model = User
         fields = {'email'}
 
-
+# TODO: Link Profile model fields into form.
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
