@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-3">Contact</h1>
+            <p>Have a question or simply want to share your love for chess? Send us a message! We'd love to read it.</p>
+            <hr class="my-4">
+
+            <div id="form_cont">
+                <form action="{% url 'contact' %}" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            <br>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <input class="btn btn-primary btn-lg" type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+
+
+
+    </div>
+
+{% endblock %}

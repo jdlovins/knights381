@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
-from .forms import SignUpForm, LoginForm, UserForm, ProfileForm
+from .forms import SignUpForm, LoginForm, UserForm, ProfileForm, ContactForm
 from .decorators import custom_login_required
 from .models import Profile
 # Create your views here.
@@ -103,3 +103,11 @@ def user_profile(request):
 
 def catalog(request):
     return render(request, 'catalog.html')
+
+
+def contact(request):
+    if request.method == 'POST':
+        contact_form = ContactForm(request.POST)
+    else:
+        contact_form = ContactForm()
+    return render(request, 'contact.html', {'form': contact_form})

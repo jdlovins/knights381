@@ -115,7 +115,12 @@ class UserForm(forms.ModelForm):
         fields = {'email'}
 
 
-# TODO: Link Profile model fields into form.
+class ContactForm(forms.Form):
+    name = forms.CharField(label='Name:', max_length=30)
+    email = forms.EmailField(label='Email', max_length=50)
+    message = forms.CharField(label='Message', max_length=200, widget=forms.Textarea())
+
+
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile

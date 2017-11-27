@@ -23,8 +23,8 @@
                 <li>
                     <a href="#">New Arrivals</a>
                 </li>
-                <li>
-                    <a href="#">Contact Us</a>
+                <li {% if request.resolver_match.url_name == 'contact' %} class="active" {% endif %}>
+                    <a href="{% url 'contact' %}">Contact Us</a>
                 </li>
 
             </ul>
