@@ -45,7 +45,6 @@ class ShoppingCart(models.Model):
 
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     review_date = models.DateField(blank=False)
     review_rating = models.DecimalField(max_digits=2,decimal_places=1, blank=False)
