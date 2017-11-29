@@ -3,52 +3,58 @@
 
 {% block content %}
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Author</th>
-            <th scope="col">Illustrator</th>
-            <th scope="col">Publisher</th>
-            <th scope="col">Published</th>
-            <th scope="col">Pages</th>
-            <th scope="col">Hardback?</th>
-            <th scope="col">Price</th>
-            <th scope="col">Purchase</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for book in book_list %}
-            <form name="catalog-form" action="{% url 'cart' %}" method="post">
+    <div class="container">
+        <div class="jumbotron">
+
+
+            <table class="table">
+                <thead>
                 <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ book.book_name }}</td>
-                    <td>{{ book.book_author }}</td>
-                    <td>{{ book.book_illustrator }}</td>
-                    <td>{{ book.book_publisher }}</td>
-                    <td>{{ book.book_datePublished }}</td>
-                    <td>{{ book.book_numOfPages }}</td>
-                    <td>
-                        {% if book.book_hardback %}
-                            <span class="glyphicon glyphicon-ok"></span>
-                        {% else %}
-                            <span class="glyphicon glyphicon-remove"></span>
-                        {% endif %}
-                    </td>
-                    <td>{{ book.book_retailPrice }}</td>
-                    <td>
-                        {% if user.is_authenticated %}
-                            <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
-                        {% else %}
-                            Please Login
-                        {% endif %}
-                    </td>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Illustrator</th>
+                    <th scope="col">Publisher</th>
+                    <th scope="col">Published</th>
+                    <th scope="col">Pages</th>
+                    <th scope="col">Hardback</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Purchase</th>
                 </tr>
-                <input type='hidden' name='book_id' value='{{ book.id }}' />
-                {% csrf_token %}
-            </form>
-        {% endfor %}
-        </tbody>
-    </table>
+                </thead>
+                <tbody>
+                {% for book in book_list %}
+                    <form name="catalog-form" action="{% url 'cart' %}" method="post">
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ book.book_name }}</td>
+                            <td>{{ book.book_author }}</td>
+                            <td>{{ book.book_illustrator }}</td>
+                            <td>{{ book.book_publisher }}</td>
+                            <td>{{ book.book_datePublished }}</td>
+                            <td>{{ book.book_numOfPages }}</td>
+                            <td>
+                                {% if book.book_hardback %}
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                {% else %}
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                {% endif %}
+                            </td>
+                            <td>{{ book.book_retailPrice }}</td>
+                            <td>
+                                {% if user.is_authenticated %}
+                                    <button type="submit" class="btn btn-success btn-sm">Add to Cart</button>
+                                {% else %}
+                                    Please Login
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <input type='hidden' name='book_id' value='{{ book.id }}'/>
+                        {% csrf_token %}
+                    </form>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock %}
