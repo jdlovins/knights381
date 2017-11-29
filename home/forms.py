@@ -118,7 +118,7 @@ class UserForm(forms.ModelForm):
 class ContactForm(forms.Form):
     name = forms.CharField(label='Name:', max_length=30)
     email = forms.EmailField(label='Email', max_length=50)
-    message = forms.CharField(label='Message', max_length=200, widget=forms.Textarea())
+    message = forms.CharField(label='Message', max_length=200, widget=forms.Textarea(attrs={'rows': 4, 'cols': 110}))
 
 
 class ProfileForm(forms.ModelForm):

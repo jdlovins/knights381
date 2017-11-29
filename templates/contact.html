@@ -1,5 +1,7 @@
 {% extends 'base/base.html' %}
 
+{% load static %}
+
 {% block content %}
     <script>
         function fake_functionality() {
@@ -8,7 +10,7 @@
     </script>
 
     <div class="container">
-        <div class="jumbotron">
+        <div class="jumbotron" style="padding: 25px 50px 30px 25px;">
             <h1 class="display-3">Contact</h1>
             <p>Have a question or simply want to share your love for chess? Send us a message! We'd love to read it.</p>
             <hr class="my-4">
@@ -26,6 +28,20 @@
                     <input class="btn btn-primary btn-lg" type="submit" value="Submit" onclick="fake_functionality()"/>
                 </form>
             </div>
+        </div>
+
+        <div id="contact_info" align="center">
+            <hr>
+            <p>
+                <small>
+                    Knights of the Square Table<br/>
+                    123 Square Blvd, Knights PA, 12345<br/>
+                    123-456-7891<br/>
+                </small>
+            </p>
+            <a href="https://twitter.com/?lang=en"><img src="{% static "images/twitter_logo.png" %}" alt="Twitter logo" style="width:35px;height:35px;"/>
+            <a href="https://www.instagram.com/?hl=en"><img src="{% static "images/instagram_logo.png" %}" alt="Instagram logo" style="width:35px;height:35px;"/>
+            <a href="https://www.facebook.com/"><img src="{% static "images/facebook_logo.png" %}" alt="Facebook logo" style="width:35px;height:35px;"/>
         </div>
 
     </div>
