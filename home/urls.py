@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^catalog/', views.catalog, name='catalog'),
     url(r'^contact/', views.contact, name='contact')
+    url(r'^cart/', views.cart, name='cart')
 ]

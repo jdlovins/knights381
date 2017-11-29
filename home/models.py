@@ -36,15 +36,12 @@ class Order(models.Model):
 
 
 class ShoppingCart(models.Model):
-    cart_itemName = models.CharField(default='', blank=False, max_length=50)
-    cart_itemPrice = models.DecimalField(default='', blank=False, max_digits=5, decimal_places=2)
-    cart_shippingPrice = models.DecimalField(default=0, blank=False, max_digits=5, decimal_places=2)
-    cart_salesTax = models.DecimalField(default=0, blank=False, max_digits=5, decimal_places=2)
-    cart_numOfItems = models.IntegerField(default=0, blank=False)
-    cart_subTotal = models.DecimalField(default=0, blank=False, max_digits=5, decimal_places=2)
-    cart_discounts = models.DecimalField(default=0, blank=True, max_digits=5, decimal_places=2)
-    cart_grandTotal = models.DecimalField(default=0, blank=False, max_digits=5, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, blank=True, default=0)
+    quantity = models.IntegerField(blank=True, default=1)
+
+    def __str__(self):
+        return f'Shopping cart for: {self.user.username}'
 
 
 class Review(models.Model):

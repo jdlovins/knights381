@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from .forms import SignUpForm, LoginForm, UserForm, ProfileForm, ContactForm
 from .decorators import custom_login_required
-from .models import Profile
+from .models import Profile, Book, ShoppingCart
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -110,4 +111,33 @@ def contact(request):
         contact_form = ContactForm(request.POST)
     else:
         contact_form = ContactForm()
-    return render(request, 'contact.html', {'form': contact_form})
+
+    book_list = Book.objects.all()
+    signup_form = SignUpForm()
+    login_form = LoginForm()
+
+    return render(request, 'contact.html', {'form': contact_form,'signup_form': signup_form, 'login_form': login_form,
+                                            'book_list': book_list})
+
+
+@login_required()
+def cart(request):
+    if request.method == 'POST':
+        book_id = request.POST['book_id']
+        if book_id is not None:
+            book = Book.objects.get(id=book_id)
+            item_exist = ShoppingCart.objects.filter(user_id=request.user.id, book=book).first()
+            if item_exist is not None:
+                item_exist.quantity += 1
+                item_exist.save()
+            else:
+                cart_item = ShoppingCart(user_id=request.user.id, book=book, quantity=1)
+                cart_item.save()
+
+    total_cart = ShoppingCart.objects.filter(user_id=request.user.id).all()
+
+    total_price = 0
+    for item in total_cart:
+        total_price += (item.book.book_retailPrice * item.quantity)
+
+    return render(request, 'cart.html', {'cart_items': total_cart, 'total_price': total_price})
