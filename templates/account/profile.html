@@ -10,35 +10,39 @@
 
 {% block content %}
 
-
-    <div class="row">
-        <div class="col-lg-3 col-lg-offset-4">
-            <form action="{% url 'account-profile' %}" id="profile-form" method="POST" class="padding" role="form"
-                  novalidate>
-                <h1> Edit Profile </h1>
-                <hr/>
-
-
-                {% for field in user_form %}
-                    <div class="form-group">
-                        {{ field.label_tag }}
-                        {% render_field field class="form-control" %}
-                    </div>
-                {% endfor %}
-                {% for field in profile_form %}
-                    <div class="form-group">
-                        {{ field.label_tag }}
-                        {% render_field field class="form-control" %}
-                    </div>
-                {% endfor %}
-                <br/>
-                <button class="btn btn-success" type="submit">Save changes</button>
-                <a class="btn btn-default" href="{% url 'index' %}">Cancel</a>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-lg-3 col-lg-offset-4">
+                    <form action="{% url 'account-profile' %}" id="profile-form" method="POST" class="padding"
+                          role="form"
+                          novalidate>
+                        <h1> Edit Profile </h1>
+                        <hr/>
 
 
-                {% csrf_token %}
+                        {% for field in user_form %}
+                            <div class="form-group">
+                                {{ field.label_tag }}
+                                {% render_field field class="form-control" %}
+                            </div>
+                        {% endfor %}
+                        {% for field in profile_form %}
+                            <div class="form-group">
+                                {{ field.label_tag }}
+                                {% render_field field class="form-control" %}
+                            </div>
+                        {% endfor %}
+                        <br/>
+                        <button class="btn btn-success" type="submit">Save changes</button>
+                        <a class="btn btn-default" href="{% url 'index' %}">Cancel</a>
 
-            </form>
+
+                        {% csrf_token %}
+
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
