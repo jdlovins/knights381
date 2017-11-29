@@ -110,7 +110,9 @@ def user_profile(request):
 def catalog(request):
     signup_form = SignUpForm()
     login_form = LoginForm()
-    return render(request, 'catalog.html', {'signup_form': signup_form,
+    book_list = Book.objects.all()
+    return render(request, 'catalog.html', {'book_list': book_list,
+                                            'signup_form': signup_form,
                                             'login_form': login_form})
 
 
@@ -123,10 +125,7 @@ def contact(request):
     else:
         contact_form = ContactForm()
 
-    book_list = Book.objects.all()
-
-    return render(request, 'contact.html', {'form': contact_form, 'signup_form': signup_form, 'login_form': login_form,
-                                            'book_list': book_list})
+    return render(request, 'contact.html', {'form': contact_form, 'signup_form': signup_form, 'login_form': login_form})
 
 
 @login_required()
