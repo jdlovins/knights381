@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -7,6 +6,8 @@ from .forms import SignUpForm, LoginForm, UserForm, ProfileForm, ContactForm
 from .decorators import custom_login_required
 from .models import Profile, Book, ShoppingCart
 from django.contrib.auth.decorators import login_required
+
+
 # Create your views here.
 
 
@@ -67,9 +68,9 @@ def register_user(request):
 
             return redirect(index)
         else:
-            #for e in form.errors:
-                #for ee in form[e].errors:
-                messages.error(request, form.errors)
+            # for e in form.errors:
+            # for ee in form[e].errors:
+            messages.error(request, form.errors)
 
     return redirect(index)
 
@@ -82,6 +83,8 @@ def logout_user(request):
 
 @custom_login_required
 def user_profile(request):
+    signup_form = SignUpForm()
+    login_form = LoginForm()
 
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
@@ -98,25 +101,31 @@ def user_profile(request):
         profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'account/profile.html', {
         'user_form': user_form,
-        'profile_form': profile_form
+        'profile_form': profile_form,
+        'signup_form': signup_form,
+        'login_form': login_form,
     })
 
 
 def catalog(request):
-    return render(request, 'catalog.html')
+    signup_form = SignUpForm()
+    login_form = LoginForm()
+    return render(request, 'catalog.html', {'signup_form': signup_form,
+                                            'login_form': login_form})
 
 
 def contact(request):
+    signup_form = SignUpForm()
+    login_form = LoginForm()
+
     if request.method == 'POST':
         contact_form = ContactForm(request.POST)
     else:
         contact_form = ContactForm()
 
     book_list = Book.objects.all()
-    signup_form = SignUpForm()
-    login_form = LoginForm()
 
-    return render(request, 'contact.html', {'form': contact_form,'signup_form': signup_form, 'login_form': login_form,
+    return render(request, 'contact.html', {'form': contact_form, 'signup_form': signup_form, 'login_form': login_form,
                                             'book_list': book_list})
 
 
